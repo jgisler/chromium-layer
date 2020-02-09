@@ -1,0 +1,14 @@
+Environment:
+   Region: us-west-2
+   Environment: test
+   StackName: chromium-lambda-dependencies-${Environment}-${Region}
+   DeploymentBucket: deployment.${Region}
+   DeploymentPrefix: ${StackName}
+   Profile: default
+CloudFormation:
+   EnvironmentName: ${Environment}-${Region}
+   
+Tags:
+   Email: jim.gisler@gmail.com
+   Application: ${StackName}
+   EnvironmentName: ${Environment}-${Region}

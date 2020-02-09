@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: AWS SAM template for deploying a lambda function
+
+Parameters:
+   EnvironmentName:
+      Type: String
+      Description: Used in resource naming to associate resources with a stack
+
+Resources:
+   ChromiumLambdaDependencies:
+      Type: AWS::Serverless::LayerVersion
+      Properties:
+         LayerName: chromium-lambda-dependencies
+         Description: Dependencies chromium-lambda
+         ContentUri: ../dist.zip
+         CompatibleRuntimes:
+            - nodejs12.x
+         LicenseInfo: 'Apache2.0'
+         RetentionPolicy: Retain

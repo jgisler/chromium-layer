@@ -1,0 +1,46 @@
+{
+   "name": "chromium-layer",
+   "version": "1.0.0",
+   "description": "AWS Lambda Layer for Chromium",
+   "main": "index.js",
+   "config": {
+      "zip_file": "dist.zip",
+      "scripts_dir": "scripts/npm",
+      "scripts_repo": "https://github.com/jgisler/npm-scripts"
+   },
+   "scripts": {
+      "scripts": "npx rimraf ${npm_package_config_scripts_dir} && git clone ${npm_package_config_scripts_repo} ${npm_package_config_scripts_dir}",
+      "config": "npx rimraf .env && ${npm_package_config_scripts_dir}/config.js $1",
+      "build": "npm install --production && npm prune --production && npm dedupe",
+      "zip": "npx rimraf ${npm_package_config_zip_file} && zip -r ${npm_package_config_zip_file} .env package.json nodejs/ -x nodejs/node_modules/.bin/ nodejs/node_modules/.cache/",
+      "package": "npx rimraf layer-out.yaml && ${npm_package_config_scripts_dir}/cf_package.sh layer",
+      "deploy": "${npm_package_config_scripts_dir}/cf_deploy.sh layer"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/jgisler/chromium-layer.git"
+   },
+   "keywords": [
+      "AWS",
+      "Lambda",
+      "Layer",
+      "Node"
+   ],
+   "author": "James Gisler",
+   "license": "Apache-2.0",
+   "bugs": {
+      "url": "https://github.com/jgisler/chromium-layer/issues"
+   },
+   "homepage": "https://github.com/jgisler/chromium-layer#readme",
+   "dependencies": {
+      "chrome-aws-lambda": "^2.0.2",
+      "puppeteer": "^2.1.1",
+      "winston": "^3.2.1"
+   },
+   "devDependencies": {
+      "config": "^3.2.5",
+      "js-yaml": "^3.13.1",
+      "jshint": "^2.11.0",
+      "prettier": "^1.19.1"
+   }
+}
