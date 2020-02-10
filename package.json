@@ -11,10 +11,10 @@
    "scripts": {
       "scripts": "npx rimraf ${npm_package_config_scripts_dir} && git clone ${npm_package_config_scripts_repo} ${npm_package_config_scripts_dir}",
       "config": "npx rimraf .env && ${npm_package_config_scripts_dir}/config.js $1",
-      "build": "npm install --production && npm prune --production && npm dedupe",
+      "build": "(cd nodejs; npm install --production && npm prune --production && npm dedupe)",
       "zip": "npx rimraf ${npm_package_config_zip_file} && zip -r ${npm_package_config_zip_file} .env package.json nodejs/ -x nodejs/node_modules/.bin/ nodejs/node_modules/.cache/",
       "package": "npx rimraf layer-out.yaml && ${npm_package_config_scripts_dir}/cf_package.sh layer",
-      "deploy": "${npm_package_config_scripts_dir}/cf_deploy.sh layer"
+      "deploy": "npm run build && npm run zip && npm run package && ${npm_package_config_scripts_dir}/cf_deploy.sh layer"
    },
    "repository": {
       "type": "git",
@@ -32,11 +32,6 @@
       "url": "https://github.com/jgisler/chromium-layer/issues"
    },
    "homepage": "https://github.com/jgisler/chromium-layer#readme",
-   "dependencies": {
-      "chrome-aws-lambda": "^2.0.2",
-      "puppeteer": "^2.1.1",
-      "winston": "^3.2.1"
-   },
    "devDependencies": {
       "config": "^3.2.5",
       "js-yaml": "^3.13.1",
