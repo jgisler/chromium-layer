@@ -33,7 +33,7 @@
    },
    "homepage": "https://github.com/jgisler/chromium-layer#readme",
    "devDependencies": {
-      "config": "^3.2.5",
+      "config": "^3.3.8",
       "js-yaml": "^3.13.1",
       "jshint": "^2.11.0",
       "prettier": "^1.19.1"
